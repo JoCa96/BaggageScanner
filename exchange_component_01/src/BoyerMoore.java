@@ -1,4 +1,4 @@
-public class Component {
+public class BoyerMoore implements IBaggageScanner{
 
      public static final int ALPHABET_SIZE = 26;
 
@@ -127,5 +127,14 @@ public class Component {
                 suffix[i] = j + 1;
             }
         }
+
+    @Override
+    public boolean search(String text, String pattern) {
+        this.text = text;
+        this.pattern = pattern;
+        int value = match();
+        if(value == -1) return false;
+        return true;
     }
+}
 
