@@ -1,11 +1,13 @@
-import javax.sound.sampled.Port;
-
 public class KnuthMorrisPratt {
     private static KnuthMorrisPratt instance = new KnuthMorrisPratt();
     public Port port;
 
     public KnuthMorrisPratt() {
         port = new Port();
+    }
+
+    public static KnuthMorrisPratt getInstance() {
+        return instance;
     }
 
     public boolean kmp(String haystack, String needle) {
