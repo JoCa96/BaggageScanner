@@ -22,7 +22,7 @@ public class Application {
             /*
                 Initialization
              */
-            System.out.println("pathToJar : " + Configuration.instance.pathToJar);
+            System.out.println("pathToJar\t: " + Configuration.instance.pathToJar);
             URL[] urls = {new File(Configuration.instance.pathToJar).toURI().toURL()};
             URLClassLoader urlClassLoader = new URLClassLoader(urls, Application.class.getClassLoader());
             /*
@@ -34,11 +34,8 @@ public class Application {
                 Get instance and his port
              */
             instance = clazz.getMethod("getInstance", new Class[0]).invoke(null, new Object[0]);
-            Object port = clazz.getDeclaredField("port").get(instance);
+            port = clazz.getDeclaredField("port").get(instance);
             System.out.println("Port\t\t\t: " + port.hashCode());
-            Method getVersion = port.getClass().getMethod("getVersion");
-            String version = (String) getVersion.invoke(port);
-            System.out.println("Version\t\t\t: " + version);
         } catch (Exception e) {
             System.out.println("Something went terribly wrong!");
             System.out.println(e.getMessage());
@@ -48,13 +45,13 @@ public class Application {
     }
 
     public boolean execute(String haystack,String needle) {
-        boolean result = false;
+        Object result = null;
         try {
             Method method = port.getClass().getMethod("search", String.class, String.class);
-            result = (Boolean)method.invoke(port, haystack, needle);
+            result = method.invoke(port, haystack, needle);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return (Boolean) result;
     }
 }

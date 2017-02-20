@@ -13,7 +13,7 @@ public enum Configuration {
     public ScannerType getScannerType() {
         try {
             Properties properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "configuration.props");
+            FileInputStream fileInputStream = new FileInputStream(userDirectory + fileSeparator + "configuration/configuration.props");
             properties.load(fileInputStream);
             fileInputStream.close();
             if (properties.getProperty("scannerType").equals("BoyerMoore"))

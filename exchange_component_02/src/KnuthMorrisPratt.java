@@ -1,7 +1,14 @@
-public class KnuthMorrisPratt implements IBaggageScanner {
+import javax.sound.sampled.Port;
 
-    @Override
-    public boolean search(String haystack, String needle) {
+public class KnuthMorrisPratt {
+    private static KnuthMorrisPratt instance = new KnuthMorrisPratt();
+    public Port port;
+
+    public KnuthMorrisPratt() {
+        port = new Port();
+    }
+
+    public boolean kmp(String haystack, String needle) {
         int[][] dfa;       // the KMP automoton
         int R = 256;
         // build DFA from pattern
@@ -21,5 +28,13 @@ public class KnuthMorrisPratt implements IBaggageScanner {
             j = dfa[haystack.charAt(i)][j];
         }
         return j == m;
+    }
+
+    public class Port implements IBaggageScanner {
+
+        @Override
+        public boolean search(String haystack, String needle) {
+            return kmp(haystack, needle);
+        }
     }
 }
