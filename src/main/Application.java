@@ -40,7 +40,7 @@ public class Application {
             String version = (String) getVersion.invoke(port);
             System.out.println("Version\t\t\t: " + version);
         } catch (Exception e) {
-            System.out.println("Something went terrible wrong!");
+            System.out.println("Something went terribly wrong!");
             System.out.println(e.getMessage());
             System.out.println("---------------------------");
             e.printStackTrace();
