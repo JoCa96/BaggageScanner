@@ -2,6 +2,9 @@ public class BoyerMoore{
 
         private static BoyerMoore instance = new BoyerMoore();
         public Port port;
+        public static BoyerMoore getInstance() {
+        return instance;
+    }
 
         private int R = 256;     // the radix
         private int[] right;     // the bad-character skip array
@@ -79,7 +82,7 @@ public class BoyerMoore{
         public boolean search(String haystack, String needle) {
             BoyerMoore bym = new BoyerMoore(needle);
             int result = bym.search(haystack);
-            if(result == 0) return false;
+            if(result == haystack.length()) return false;
             return true;
         }
     }
