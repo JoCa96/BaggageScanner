@@ -1,4 +1,6 @@
-public class BoyerMoore implements IBaggageScanner{
+import java.lang.reflect.Method;
+
+public class BoyerMoore{
 
      public static final int ALPHABET_SIZE = 26;
 
@@ -13,7 +15,9 @@ public class BoyerMoore implements IBaggageScanner{
          * Searches the pattern in the text.
          * returns the position of the first occurrence, if found and -1 otherwise.
          */
-        public int match() {
+        public int match(String a, String b) {
+            text = a;
+            pattern = b;
             // Preprocessing
             computeLast();
             computeMatch();
@@ -127,13 +131,15 @@ public class BoyerMoore implements IBaggageScanner{
                 suffix[i] = j + 1;
             }
         }
-    @Override
-    public boolean search(String text, String pattern) {
-        this.text = text;
-        this.pattern = pattern;
-        int value = match();
-        if(value == -1) return false;
-        return true;
+
+    public class Port implements IBaggageScanner {
+
+        @Override
+        public boolean search(String haystack, String needle) {
+            int value = match(haystack,needle);
+            if(value == -1) return false;
+            return true;
+        }
     }
 
 
