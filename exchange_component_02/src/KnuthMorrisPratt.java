@@ -2,29 +2,24 @@ public class KnuthMorrisPratt implements IBaggageScanner {
 
     @Override
     public boolean search(String haystack, String needle) {
-        int givenStringLetterPosition = 0;
-        int searchedStringLetterPosition = 0;
-        int foundAt = -1;
-
-        while (givenStringLetterPosition < haystack.length()) {
-            if (haystack.charAt(givenStringLetterPosition) == needle.charAt(searchedStringLetterPosition)) {
-                if (searchedStringLetterPosition == 0) {
-                    foundAt = givenStringLetterPosition;
-                }
-                searchedStringLetterPosition++;
-                givenStringLetterPosition++;
-                if (searchedStringLetterPosition == needle.length()) {
-                    return true;
-                }
-            } else {
-                searchedStringLetterPosition = 0;
-                foundAt++;
-                givenStringLetterPosition = foundAt;
-                if (haystack.length() == givenStringLetterPosition) {
-                    return false;
-                }
-            }
+        int[][] dfa;       // the KMP automoton
+        int R = 256;
+        // build DFA from pattern
+        int m = needle.length();
+        dfa = new int[R][m];
+        dfa[needle.charAt(0)][0] = 1;
+        for (int x = 0, j = 1; j < m; j++) {
+            for (int c = 0; c < R; c++)
+                dfa[c][j] = dfa[c][x];     // Copy mismatch cases.
+            dfa[needle.charAt(j)][j] = j + 1;   // Set match case.
+            x = dfa[needle.charAt(j)][x];     // Update restart state.
         }
-        return false;
+        // simulate operation of DFA on text
+        int n = haystack.length();
+        int i, j;
+        for (i = 0, j = 0; i < n && j < m; i++) {
+            j = dfa[haystack.charAt(i)][j];
+        }
+        return j == m;
     }
 }
