@@ -1,34 +1,30 @@
-public class KnuthMorrisPratt implements IBaggageScanner{
+public class KnuthMorrisPratt implements IBaggageScanner {
 
     @Override
-    public boolean search(String text) {
-        private String givenString = "ABC ABCDAB ABCDABCDABDE";
-        String searchedString = "ABCDABD";
+    public boolean search(String haystack, String needle) {
         int givenStringLetterPosition = 0;
         int searchedStringLetterPosition = 0;
         int foundAt = -1;
 
-        while(givenStringLetterPosition < giv)
-        {
-            if (givenString.charAt(givenStringLetterPosition) == searchedString.charAt(searchedStringLetterPosition)) {
+        while (givenStringLetterPosition < haystack.length()) {
+            if (haystack.charAt(givenStringLetterPosition) == needle.charAt(searchedStringLetterPosition)) {
                 if (searchedStringLetterPosition == 0) {
                     foundAt = givenStringLetterPosition;
                 }
                 searchedStringLetterPosition++;
                 givenStringLetterPosition++;
-                if (searchedStringLetterPosition == searchedString.length()) {
-                    System.out.println("String found at " + foundAt + " position.");
-                    break;
+                if (searchedStringLetterPosition == needle.length()) {
+                    return true;
                 }
             } else {
                 searchedStringLetterPosition = 0;
                 foundAt++;
                 givenStringLetterPosition = foundAt;
-                if (givenString.length() == givenStringLetterPosition) {
-                    System.out.println("String was not found.");
-                    break;
+                if (haystack.length() == givenStringLetterPosition) {
+                    return false;
                 }
             }
         }
+        return false;
     }
 }
