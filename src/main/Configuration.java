@@ -8,7 +8,7 @@ public enum Configuration {
     public String userDirectory = System.getProperty("user.dir");
     public String fileSeparator = System.getProperty("file.separator");
     public ScannerType scannerType = getScannerType();
-    public String pathToJar = userDirectory + fileSeparator + scannerType + fileSeparator + scannerType + ".jar";
+    public String pathToJar = userDirectory + fileSeparator + scannerType + fileSeparator  + "Component.jar";
 
     public ScannerType getScannerType() {
         try {

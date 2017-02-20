@@ -127,7 +127,6 @@ public class BoyerMoore implements IBaggageScanner{
                 suffix[i] = j + 1;
             }
         }
-
     @Override
     public boolean search(String text, String pattern) {
         this.text = text;
@@ -136,5 +135,7 @@ public class BoyerMoore implements IBaggageScanner{
         if(value == -1) return false;
         return true;
     }
+
+
 }
 
